@@ -1,0 +1,5 @@
+{
+  "proxy"       : "http://github.com",
+  "https-proxy" : "http://github.com",
+  "strict-ssl"  : false
+} 

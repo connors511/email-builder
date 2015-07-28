@@ -1,0 +1,45 @@
+api:
+  image: node
+  volumes:
+    - ./api/:/app/
+  working_dir: /app/
+  command: npm start
+  environment:
+    - NODE_ENV=development
+    - VIRTUAL_HOST=api.email.dev
+    - VIRTUAL_PORT=8000
+  ports:
+    - "8000:8000"
+  links:
+    - mongodb
+
+# Basic data
+mongodb:
+  image: tutum/mongodb
+  environment:
+   - AUTH=no
+
+# # Should basicly just be a repo with assets
+# # specific to that area. Serve via CDN?
+client:
+  image: neo9polska/nodejs-bower-gulp
+  volumes:
+    - ./client/:/app/
+  working_dir: /app/
+  command: npm start
+  environment:
+    - VIRTUAL_HOST=email.dev
+    - VIRTUAL_PORT=3000
+  ports:
+    - "3000:3000"
+  links:
+    - api
+
+nginx:
+  image: jwilder/nginx-proxy
+  environment:
+    - DEFAULT_HOST=email.dev
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+  ports:
+    - "80:80"
