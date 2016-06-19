@@ -1,23 +1,23 @@
-api:
-  image: node
-  volumes:
-    - ./api/:/app/
-  working_dir: /app/
-  command: npm start
-  environment:
-    - NODE_ENV=development
-    - VIRTUAL_HOST=api.email.dev
-    - VIRTUAL_PORT=8000
-  ports:
-    - "8000:8000"
-  links:
-    - mongodb
+# api:
+#   image: node
+#   volumes:
+#     - ./api/:/app/
+#   working_dir: /app/
+#   command: npm start
+#   environment:
+#     - NODE_ENV=development
+#     - VIRTUAL_HOST=api.email.dev
+#     - VIRTUAL_PORT=8000
+#   ports:
+#     - "8000:8000"
+#   links:
+#     - mongodb
 
-# Basic data
-mongodb:
-  image: tutum/mongodb
-  environment:
-   - AUTH=no
+# # Basic data
+# mongodb:
+#   image: tutum/mongodb
+#   environment:
+#    - AUTH=no
 
 # # Should basicly just be a repo with assets
 # # specific to that area. Serve via CDN?
@@ -31,9 +31,9 @@ client:
     - VIRTUAL_HOST=email.dev
     - VIRTUAL_PORT=3000
   ports:
-    - "3000:3000"
-  links:
-    - api
+    - "4000:3000"
+  # links:
+  #   - api
 
 nginx:
   image: jwilder/nginx-proxy
